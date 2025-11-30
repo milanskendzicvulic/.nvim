@@ -3,6 +3,7 @@
 -- be a distribution, but rather a template for you to build upon and/or a
 -- reference for how to configure neovim using lua in the latest version.
 --
+--
 -- TUTOR:
 -- if you're completely new to neovim and/or vim, consider going through
 -- `:Tutor` inside neovim to get a basic idea of how it works.
@@ -413,7 +414,9 @@ vim.keymap.set("n", "<leader>sr", pickers.resume, { desc = "[S]earch [R]esume", 
 vim.keymap.set("n", "<leader>sh", pickers.help_tags, { desc = "[S]earch [H]elp", })
 vim.keymap.set("n", "<leader>sm", pickers.man_pages, { desc = "[S]earch [M]anuals", })
 
--- INFO: better statusline
+--------------------------------------------------------------------------
+-- INFO: LUALINE ---------------------------------------------------------
+--------------------------------------------------------------------------
 vim.pack.add({ "https://github.com/nvim-lualine/lualine.nvim" }, { confirm = false })
 
 require("lualine").setup({
@@ -423,7 +426,74 @@ require("lualine").setup({
   },
 })
 
--- INFO: keybinding helper
+--------------------------------------------------------------------------
+-- INFO: MINI-FILES ------------------------------------------------------
+--------------------------------------------------------------------------
+vim.pack.add({
+  "https://github.com/echasnovski/mini.files",
+}, { confirm = false })
+
+-- Configure mini.files
+require("mini.files").setup({
+  -- Enable preview window (optional but useful)
+--  windows = {
+--    preview = true,
+--    width_preview = 60,
+--  },
+})
+
+-- Open at current file’s directory
+vim.keymap.set("n", "<leader>e", function()
+  require("mini.files").open(vim.api.nvim_buf_get_name(0))
+end, { desc = "MiniFiles: open at current file" })
+
+-- Open at working directory
+vim.keymap.set("n", "<leader>o", function()
+  require("mini.files").open(vim.loop.cwd())
+end, { desc = "MiniFiles: open at CWD" })
+--------------------------------------------------------------------------
+-- INFO: NEO-TREE --------------------------------------------------------
+--------------------------------------------------------------------------
+--vim.pack.add({
+--  "https://github.com/MunifTanjim/nui.nvim",
+--}, { confirm = false })
+--
+---- neo-tree main plugin
+--vim.pack.add({
+--  "https://github.com/nvim-neo-tree/neo-tree.nvim",
+--}, { confirm = false })
+--
+--require("neo-tree").setup({
+--  filesystem = {
+--    follow_current_file = { enabled = true }, -- sync buffer <-> tree
+--    filtered_items = {
+--      hide_dotfiles = false,
+--      hide_gitignored = false,
+--    },
+--  },
+--  window = {
+--    width = 30,
+----    mappings = {
+----      ["h"] = "close_node", -- go to parent directory
+----      ["l"] = "open",        -- open file / expand directory
+----      ["<CR>"] = "open",     -- keep Enter as well
+----      ["j"] = "next",        -- move down
+----      ["k"] = "prev",          -- move up
+----    },
+--  },
+--})
+--
+--
+--vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", {
+--  noremap = true,
+--  silent = true,
+--  desc = "Toggle Neo-tree",
+--})
+
+
+--------------------------------------------------------------------------
+-- INFO: WHICH-KEY -------------------------------------------------------
+--------------------------------------------------------------------------
 vim.pack.add({ "https://github.com/folke/which-key.nvim" }, { confirm = false })
 
 require("which-key").setup({
