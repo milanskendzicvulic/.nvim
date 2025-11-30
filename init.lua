@@ -201,11 +201,22 @@ require("gruvbox").setup({
 })
 vim.cmd.colorscheme("gruvbox")
 
+
 -- INFO: formatting and syntax highlighting
 vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter" }, { confirm = false })
 
 -- Multi
 vim.pack.add({ "https://github.com/mg979/vim-visual-multi" }, { confirm = false })
+
+-- LazyGit plugin
+vim.pack.add({ "https://github.com/kdheepak/lazygit.nvim" }, { confirm = false })
+
+-- Keybinding to open LazyGit
+vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<CR>", {
+  noremap = true,
+  silent = true,
+  desc = "Open LazyGit",
+})
 
 -- equivalent to :TSUpdate
 require("nvim-treesitter.install").update("all")
