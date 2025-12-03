@@ -246,23 +246,41 @@ require("nvim-treesitter.configs").setup({
 -- INFO: completion engine
 vim.pack.add({ "https://github.com/saghen/blink.cmp" }, { confirm = false })
 
+
 require("blink.cmp").setup({
   completion = {
     documentation = {
       auto_show = true,
     },
   },
+  signature = { enabled = true },
+  appearance = {
+    use_nvim_cmp_as_default = true,
+    nerd_font_variant = "mono"
+  },
 
   keymap = {
     ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
     ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
-    ['<C-y>'] = { 'select_and_accept', 'fallback' },
+
+    --  Not sure if I even need or want this
+    --    ['<C-y>'] = { 'select_and_accept', 'fallback' }, -- Do I even need this?
+    --
+    --  Tab for autocomplete
+    ['<Tab>'] = { 'select_and_accept', 'fallback' },
+
     ['<C-e>'] = { 'cancel', 'fallback' },
 
-    ['<Tab>'] = { 'snippet_forward', 'select_next', 'fallback' },
-    ['<S-Tab>'] = { 'snippet_backward', 'select_prev', 'fallback' },
+    --  Not sure if I even need the tabs for movement
+    --  TODO: What is the difference between select_next and snippet_forward?
+    --    ['<Tab>'] = { 'snippet_forward', 'select_next', 'fallback' },
+    --    ['<S-Tab>'] = { 'snippet_backward', 'select_prev', 'fallback' },
+
     ['<CR>'] = { 'select_and_accept', 'fallback' },
-    ['<Esc>'] = { 'cancel', 'hide_documentation', 'fallback' },
+
+    -- Turned this off because I want to be able to exit insert move with just
+    -- pressing the Esc button once instead of twice. C-c is garbo.
+    --    ['<Esc>'] = { 'cancel', 'hide_documentation', 'fallback' },
 
     ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
 
@@ -436,10 +454,10 @@ vim.pack.add({
 -- Configure mini.files
 require("mini.files").setup({
   -- Enable preview window (optional but useful)
---  windows = {
---    preview = true,
---    width_preview = 60,
---  },
+  --  windows = {
+  --    preview = true,
+  --    width_preview = 60,
+  --  },
 })
 
 -- Open at current file’s directory
