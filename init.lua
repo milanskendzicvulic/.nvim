@@ -307,9 +307,9 @@ local lsp_servers = {
   clangd = {},
   rust_analyzer = {},
   gopls = {},
-  pyright = {
+  basedpyright = {
     settings = {
-      python = {
+      basedpyright = {
         analysis = {
           typeCheckingMode = "standard",
         }
@@ -406,6 +406,14 @@ for server, config in pairs(lsp_servers) do
 
   })
 end
+
+-- enable inlay hints globally on startup
+-- vim.lsp.inlay_hint.enable(true)
+
+-- Toggle inlay hints with <leader>ih
+vim.keymap.set("n", "<leader>ih", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Toggle inlay hints" })
 
 -- NOTE: if all you want is lsp + completion + highlighting, you're done.
 -- the rest of the lines are just quality-of-life/appearance plugins and
